@@ -5,18 +5,24 @@ import { Button } from "react-native-web";
 import Styles from "../styles/main-style";
 
 //recebemos o navigation por parâmetro para utilizar no redirecionamento quando necessário
-const Home = ({ navigation }) => {
+const Login = ({ navigation }) => {
   return (
     <View style={Styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>ReservLab</Text>
       <Button
-        title="Home !"
+        title="Entrar como Professor"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
-        onPress={() => navigation.navigate("ComponentA")}
+        onPress={() => navigation.navigate("InicioProfessor")}
+      />
+
+      <Button
+        title="Entrar como Administrador"
+        //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
+        onPress={() => navigation.navigate("InicioAdministrador")}
       />
       <StatusBar style="auto" />
     </View>
   );
 };
 
-export default Home;
+export default Login;
