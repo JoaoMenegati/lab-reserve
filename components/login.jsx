@@ -9,11 +9,16 @@ const Login = ({ navigation }) => {
   return (
     <View style={Styles.container}>
       <Text>ReservLab</Text>
+
+      <View style={{ flex: 0.1 }} />
+
       <Button
         title="Entrar como Professor"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
         onPress={() => navigation.navigate("InicioProfessor")}
       />
+
+      <View style={{ flex: 0.1 }} />
 
       <Button
         title="Entrar como Administrador"
