@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Button, TextInput } from "react-native-web";
 
 import Styles from "../styles/main-style";
@@ -13,11 +13,11 @@ const Login = ({ navigation }) => {
 
       <View style={{ flex: 0.1 }} />
 
-      <TextInput style={styles.input} placeholder="Usuário" />
+      <TextInput style={Styles.input} placeholder="Usuário" />
 
       <TextInput
         secureTextEntry={true}
-        style={styles.input}
+        style={Styles.input}
         placeholder="Senha"
       />
 
@@ -38,16 +38,5 @@ const Login = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
 
 export default Login;
