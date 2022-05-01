@@ -7,6 +7,20 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  input: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+
+  label: {
+    fontSize: 28,
+    color: "000",
+  },
 });
 
 export default Styles;
