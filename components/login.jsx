@@ -15,11 +15,15 @@ const Login = ({ navigation }) => {
 
       <TextInput style={Styles.input} placeholder="Usuário" />
 
+      <View style={{ flex: 0.1 }} />
+
       <TextInput
         secureTextEntry={true}
         style={Styles.input}
         placeholder="Senha"
       />
+
+      <View style={{ flex: 0.1 }} />
 
       <Button
         title="Entrar como Professor"

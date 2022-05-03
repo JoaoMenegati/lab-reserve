@@ -6,12 +6,14 @@ const Styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: 10,
   },
 
   input: {
     alignItems: "center",
     justifyContent: "center",
     height: 40,
+    width: 250,
     margin: 12,
     borderWidth: 1,
     padding: 10,
