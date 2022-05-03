@@ -16,7 +16,7 @@ const CadastrarLaboratorio = ({ navigation }) => {
       <TextInput style={Styles.input} placeholder="Sala" />
       <View style={{ flex: 0.1 }} />
 
-      <TextInput style={Styles.input} placeholder="Observação" />
+      <TextInput style={Styles.input} placeholder="Descrição" />
       <View style={{ flex: 0.1 }} />
 
       <Button

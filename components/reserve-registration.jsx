@@ -30,10 +30,14 @@ const CriarReserva = ({ navigation }) => {
       <TextInput style={Styles.input} placeholder="Data" />
       <View style={{ flex: 0.1 }} />
 
-      <TextInput style={Styles.input} placeholder="Início" />
-      <View style={{ flex: 0.1 }} />
+      <View style={Styles.alinharCampos}>
+        <TextInput
+          style={Styles.inputCampoMenor}
+          placeholder="Hora de início"
+        />
+        <TextInput style={Styles.inputCampoMenor} placeholder="Hora de fim" />
+      </View>
 
-      <TextInput style={Styles.input} placeholder="Fim" />
       <View style={{ flex: 0.1 }} />
 
       <TextInput style={Styles.input} placeholder="Observação" />

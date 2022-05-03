@@ -26,6 +26,7 @@ const Login = ({ navigation }) => {
       <View style={{ flex: 0.1 }} />
 
       <Button
+        style={Styles.button}
         title="Entrar como Professor"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
         onPress={() => navigation.navigate("InicioProfessor")}
@@ -34,6 +35,7 @@ const Login = ({ navigation }) => {
       <View style={{ flex: 0.1 }} />
 
       <Button
+        style={Styles.button}
         title="Entrar como Administrador"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
         onPress={() => navigation.navigate("InicioAdministrador")}

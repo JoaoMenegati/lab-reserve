@@ -23,6 +23,26 @@ const Styles = StyleSheet.create({
     fontSize: 28,
     color: "000",
   },
+
+  button: {
+    height: 40,
+    width: 250,
+  },
+
+  alinharCampos: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  inputCampoMenor: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
+    width: 114,
+    margin: 12,
+    borderWidth: 1,
+    padding: 5,
+  },
 });
 
 export default Styles;
