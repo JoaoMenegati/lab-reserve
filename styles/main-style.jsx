@@ -3,10 +3,12 @@ import { StyleSheet } from "react-native";
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10,
+    backgroundColor: "white",
+    margin: "2%",
+    borderStyle: "solid",
+    borderWidth: "1px",
   },
 
   input: {
