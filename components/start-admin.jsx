@@ -22,7 +22,9 @@ const InicioAdministrador = ({ navigation }) => {
         onPress={() => navigation.navigate("CadastrarLaboratorio")}
       />
       <View style={{ flex: 0.1 }} />
-      <Text>Listar aqui todas as reservas</Text>
+
+      <Text style={Styles.textLembrar}>Listar aqui todas as reservas</Text>
+
       <View style={{ flex: 0.1 }} />
       <Button
         title="Cadastrar Reserva"

@@ -43,6 +43,11 @@ const Styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
   },
+
+  textLembrar: {
+    fontSize: 20,
+    color: "red",
+  },
 });
 
 export default Styles;

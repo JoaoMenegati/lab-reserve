@@ -6,7 +6,9 @@ import Styles from "../styles/main-style";
 const SolicitacaoReserva = ({ navigation }) => {
   return (
     <View style={Styles.container}>
-      <Text>Listar aqui todas solicitações de reservas</Text>
+      <Text style={Styles.textLembrar}>
+        Listar aqui todas solicitações de reservas
+      </Text>
     </View>
   );
 };
