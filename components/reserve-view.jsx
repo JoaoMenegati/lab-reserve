@@ -85,13 +85,14 @@ const VerReserva = ({ navigation }) => {
         </View>
 
         <View style={{ flex: 0.1 }} />
-
-        <Button
-          color="#484D50"
-          title="Sair"
-          onPress={() => navigation.navigate("Login")}
-        />
       </View>
+      <View style={{ flex: 0.1 }} />
+      <Button
+        color="#484D50"
+        title="Sair"
+        onPress={() => navigation.navigate("Login")}
+      />
+      <View style={{ flex: 0.1 }} />
     </View>
   );
 };
