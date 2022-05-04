@@ -11,6 +11,7 @@ import { Button } from "react-native-web";
 import CalendarPicker from "react-native-calendar-picker";
 
 import Styles from "../styles/main-style";
+import ListLabs from "./list-labs";
 
 const window = Dimensions.get("window");
 
@@ -29,36 +30,34 @@ const InicioProfessor = ({ navigation }) => {
 
   const DATA = [
     {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
+      id: "0",
+      hour: "16:00",
+      lab: "LabQuimica2",
     },
     {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
+      id: "1",
+      hour: "18:00",
+      lab: "LabProdSoftware",
     },
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
+      id: "2",
+      hour: "19:00",
+      lab: "LabTopoGeo",
     },
-
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d71",
-      title: "Third Item",
+      id: "3",
+      hour: "21:00",
+      lab: "LabQuimica",
     },
-
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d75",
-      title: "Third Item",
+      id: "4",
+      hour: "21:30",
+      lab: "LabQuimica3",
     },
-
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d73",
-      title: "Third Item",
-    },
-
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d74",
-      title: "Third Item",
+      id: "5",
+      hour: "22:00",
+      lab: "LabQuimica5",
     },
   ];
 
@@ -103,26 +102,37 @@ const InicioProfessor = ({ navigation }) => {
       <View style={StartTeacherStyle.listComponent}>
         <View
           style={{
-            // borderColor: "black",
-            flex: 1,
-            backgroundColor: "lightgray",
-            borderRadius: 12,
+            flexDirection: "row",
+            gap: (window.width * 0.8) / 5,
+            marginLeft: 10,
           }}
-        ></View>
-        <TouchableHighlight
-          style={
-            (StartTeacherStyle.imageContainer,
-            { alignSelf: "flex-end", marginRight: 10 })
-          }
-          onPress={onCriarReserva}
         >
-          <Image
-            style={StartTeacherStyle.image}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/74/74673.png",
-            }}
-          />
-        </TouchableHighlight>
+          <Text style={StartTeacherStyle.titleText}>Minhas reservas</Text>
+          <TouchableHighlight
+            style={
+              (StartTeacherStyle.imageContainer,
+              { alignSelf: "flex-end", marginRight: 10 })
+            }
+            onPress={onCriarReserva}
+          >
+            <Image
+              style={StartTeacherStyle.image}
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/512/74/74673.png",
+              }}
+            />
+          </TouchableHighlight>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            borderRadius: 12,
+            marginTop: 5,
+            marginBottom: 5,
+          }}
+        >
+          <ListLabs data={DATA}></ListLabs>
+        </View>
       </View>
     </View>
   );
