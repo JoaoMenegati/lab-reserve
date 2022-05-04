@@ -11,7 +11,7 @@ import { Button } from "react-native-web";
 import CalendarPicker from "react-native-calendar-picker";
 
 import Styles from "../styles/main-style";
-import ListLabs from "./list-labs";
+import ListLabsStartTeacher from "./list-labs-start-teacher";
 
 const window = Dimensions.get("window");
 
@@ -131,7 +131,7 @@ const InicioProfessor = ({ navigation }) => {
             marginBottom: 5,
           }}
         >
-          <ListLabs data={DATA}></ListLabs>
+          <ListLabsStartTeacher data={DATA}></ListLabsStartTeacher>
         </View>
       </View>
     </View>

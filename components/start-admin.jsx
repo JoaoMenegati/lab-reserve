@@ -8,6 +8,7 @@ const InicioAdministrador = ({ navigation }) => {
   return (
     <View style={Styles.container}>
       <Button
+        color="#484D50"
         title="Ver Reservas"
         onPress={() => navigation.navigate("VerReserva")}
       />
@@ -18,6 +19,7 @@ const InicioAdministrador = ({ navigation }) => {
       />
       <View style={{ flex: 0.1 }} />
       <Button
+        color="#484D50"
         title="Cadastrar Laboratório"
         onPress={() => navigation.navigate("CadastrarLaboratorio")}
       />
@@ -27,11 +29,16 @@ const InicioAdministrador = ({ navigation }) => {
 
       <View style={{ flex: 0.1 }} />
       <Button
+        color="#484D50"
         title="Cadastrar Reserva"
         onPress={() => navigation.navigate("CriarReserva")}
       />
       <View style={{ flex: 0.1 }} />
-      <Button title="Sair" onPress={() => navigation.navigate("Login")} />
+      <Button
+        color="#484D50"
+        title="Sair"
+        onPress={() => navigation.navigate("Login")}
+      />
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { TextInput, Button, Picker } from "react-native-web";
 
 import Styles from "../styles/main-style";
@@ -9,7 +9,7 @@ const CriarReserva = ({ navigation }) => {
 
   return (
     <View style={Styles.container}>
-      <Text>Nova reserva</Text>
+      <Text style={ReserveStyle.tituloTela}>Nova reserva</Text>
       <View style={{ flex: 0.1 }} />
 
       <Picker
@@ -44,11 +44,18 @@ const CriarReserva = ({ navigation }) => {
       <View style={{ flex: 0.1 }} />
 
       <Button
+        color="#484D50"
         title="Salvar Reserva"
-        onPress={() => navigation.navigate("InicioProfessor")}
+        onPress={() => navigation.navigate("Login")}
       />
     </View>
   );
 };
+
+const ReserveStyle = StyleSheet.create({
+  tituloTela: {
+    fontSize: 26,
+  },
+});
 
 export default CriarReserva;

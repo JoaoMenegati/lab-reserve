@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList, Text } from "react-native";
 
-const ListLabs = (props) => {
+const ListLabsViewReserve = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -15,7 +15,7 @@ const ListLabs = (props) => {
             }}
           >
             <Text style={{ fontSize: 26 }}>
-              • {item.hour} - {item.lab}
+              • {item.hour} - {item.teacher}
             </Text>
           </View>
         )}
@@ -25,4 +25,4 @@ const ListLabs = (props) => {
   );
 };
 
-export default ListLabs;
+export default ListLabsViewReserve;
