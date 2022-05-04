@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Text, View, Image, StyleSheet } from "react-native";
 import { Button, TextInput } from "react-native-web";
 
 import Styles from "../styles/main-style";
@@ -9,7 +9,17 @@ import Styles from "../styles/main-style";
 const Login = ({ navigation }) => {
   return (
     <View style={Styles.container}>
-      <Text>ReservLab</Text>
+      <Text style={LoginStyle.tituloApp}>ReservLab</Text>
+
+      <View style={{ flex: 0.03 }} />
+      <View>
+        <Image
+          style={LoginStyle.image}
+          source={{
+            uri: "https://cdn-icons.flaticon.com/png/512/2216/premium/2216496.png?token=exp=1651626343~hmac=5f608668cf8e09af87b101b37b470b33",
+          }}
+        />
+      </View>
 
       <View style={{ flex: 0.1 }} />
 
@@ -26,6 +36,7 @@ const Login = ({ navigation }) => {
       <View style={{ flex: 0.1 }} />
 
       <Button
+        color="#484D50"
         style={Styles.button}
         title="Entrar como Professor"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
@@ -35,6 +46,7 @@ const Login = ({ navigation }) => {
       <View style={{ flex: 0.1 }} />
 
       <Button
+        color="#484D50"
         style={Styles.button}
         title="Entrar como Administrador"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
@@ -44,5 +56,22 @@ const Login = ({ navigation }) => {
     </View>
   );
 };
+
+const LoginStyle = StyleSheet.create({
+  imageContainer: {
+    height: 40,
+    width: 40,
+    borderRadius: 64,
+  },
+
+  image: {
+    height: 40,
+    width: 40,
+  },
+
+  tituloApp: {
+    fontSize: 20,
+  },
+});
 
 export default Login;

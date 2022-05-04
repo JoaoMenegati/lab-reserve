@@ -5,10 +5,10 @@ import {
   Dimensions,
   TouchableHighlight,
   Image,
+  StyleSheet,
 } from "react-native";
 import { Button } from "react-native-web";
 import CalendarPicker from "react-native-calendar-picker";
-import { StyleSheet } from "react-native";
 
 import Styles from "../styles/main-style";
 
