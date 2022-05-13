@@ -1,12 +1,23 @@
-import React from "react";
+import { React, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { Button, TextInput } from "react-native-web";
+
+import doLogin from "../source/login";
 
 import Styles from "../styles/main-style";
 
 //recebemos o navigation por parâmetro para utilizar no redirecionamento quando necessário
 const Login = ({ navigation }) => {
+  const [ra, setRa] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function FazerLogin() {
+    if (doLogin(ra, senha)) {
+      navigation.navigate("InicioProfessor");
+    }
+  }
+
   return (
     <View style={Styles.container}>
       <Text style={LoginStyle.tituloApp}>ReservLab</Text>
@@ -23,7 +34,11 @@ const Login = ({ navigation }) => {
 
       <View style={{ flex: 0.1 }} />
 
-      <TextInput style={Styles.input} placeholder="Usuário" />
+      <TextInput
+        style={Styles.input}
+        placeholder="Usuário"
+        onChangeText={(text) => setRa({ text })}
+      />
 
       <View style={{ flex: 0.1 }} />
 
@@ -31,6 +46,7 @@ const Login = ({ navigation }) => {
         secureTextEntry={true}
         style={Styles.input}
         placeholder="Senha"
+        onChangeText={(text) => setSenha({ text })}
       />
 
       <View style={{ flex: 0.1 }} />
@@ -40,7 +56,7 @@ const Login = ({ navigation }) => {
         style={Styles.button}
         title="Entrar como Professor"
         //navigation.navigate é utilizado para enviar para outra tela, que tem seu nome passado por parâmetro
-        onPress={() => navigation.navigate("InicioProfessor")}
+        onPress={() => FazerLogin()}
       />
 
       <View style={{ flex: 0.1 }} />
