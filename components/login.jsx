@@ -12,8 +12,8 @@ const Login = ({ navigation }) => {
   const [ra, setRa] = useState("");
   const [senha, setSenha] = useState("");
 
-  function FazerLogin() {
-    if (doLogin(ra, senha)) {
+  async function FazerLogin() {
+    if (await doLogin(ra.text, senha.text)) {
       navigation.navigate("InicioProfessor");
     }
   }
