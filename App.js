@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Login from "./components/login";
-import InicioProfessor from "./components/start-teacher";
-import InicioAdministrador from "./components/start-admin";
-import CriarReserva from "./components/reserve-registration";
-import VerReserva from "./components/reserve-view";
-import SolicitacaoReserva from "./components/reserve-solicitation";
-import CadastrarLaboratorio from "./components/register-laboratory";
+import Login from "./components/screens/login";
+import MainTeacher from "./components/screens/main-teacher";
+import MainAdmin from "./components/screens/main-admin";
+import ReserveRegistration from "./components/screens/reserve-registration";
+import ReserveView from "./components/screens/reserve-view";
+import LaboratoryRegistration from "./components/screens/laboratory-registration";
+import ReserveSolicitation from "./components/screens/reserve-solicitation";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,20 +16,20 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="InicioProfessor" component={InicioProfessor} />
-        <Stack.Screen name="CriarReserva" component={CriarReserva} />
+        <Stack.Screen name="MainAdmin" component={MainAdmin} />
+        <Stack.Screen name="MainTeacher" component={MainTeacher} />
         <Stack.Screen
-          name="InicioAdministrador"
-          component={InicioAdministrador}
+          name="ReserveRegistration"
+          component={ReserveRegistration}
         />
-        <Stack.Screen name="VerReserva" component={VerReserva} />
+        <Stack.Screen name="ReserveView" component={ReserveView} />
         <Stack.Screen
-          name="SolicitacaoReserva"
-          component={SolicitacaoReserva}
+          name="LaboratoryRegistration"
+          component={LaboratoryRegistration}
         />
         <Stack.Screen
-          name="CadastrarLaboratorio"
-          component={CadastrarLaboratorio}
+          name="ReserveSolicitation"
+          component={ReserveSolicitation}
         />
       </Stack.Navigator>
     </NavigationContainer>
