@@ -9,7 +9,6 @@ export default async function doLogin(ra, senha) {
     let success = false;
 
     await signInWithEmailAndPassword(auth, ra, senha).then((value) => {
-      alert("Olá " + value.user.uid);
       success = true;
     });
 
