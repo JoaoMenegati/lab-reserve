@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import MaskInput, { Masks } from "react-native-mask-input";
 
 import MainStyle from "../../styles/main-style";
 import ReserveRegistrationStyle from "../../styles/screens/reserve-registration-style";
 
+import { registerReserve } from "../../source/labs-reserve";
+
 const ReserveRegistration = ({ navigation }) => {
-  const [selectedValue, setSelectedValue] = useState("B2-S1");
+  const [lab, setLab] = useState("B2-S1");
+  const [date, setDate] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [endHour, setEndHour] = useState("");
+  const [observation, setObservation] = useState("");
+
+  async function onRegister() {
+    registerReserve("3y8QF4aiJ4YsgYnDed9xX3l6e0M2", { //mudar para pegar o uid do usuário logado
+      lab: lab,
+      date: date,
+      startHour: startHour,
+      endHour: endHour,
+      observation: observation,
+    });
+  }
 
   return (
     <View style={MainStyle.container}>
@@ -15,8 +32,8 @@ const ReserveRegistration = ({ navigation }) => {
       <Picker
         style={MainStyle.input}
         placeholder="Laboratório"
-        selectedValue={selectedValue}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        selectedValue={lab}
+        onValueChange={(itemValue, itemIndex) => setLab(itemValue)}
       >
         <Picker.Item value="B2-S1" label="1ENGSOF" />
         <Picker.Item value="B2-S2" label="2PROGR" />
@@ -27,28 +44,49 @@ const ReserveRegistration = ({ navigation }) => {
       </Picker>
 
       <View style={ReserveRegistrationStyle.dateContainer}>
-        <TextInput style={MainStyle.input} placeholder="Data" />
+        <MaskInput
+          style={MainStyle.input}
+          value={date}
+          mask={Masks.DATE_DDMMYYYY}
+          placeholder="Data"
+          onChangeText={(masked, unmasked) => {
+            setDate(masked);
+          }}
+        />
       </View>
 
       <View style={ReserveRegistrationStyle.hourContainer}>
-        <TextInput
+        <MaskInput
           style={ReserveRegistrationStyle.dateInput}
+          value={startHour}
+          mask={[/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/]}
           placeholder="Hora de início"
+          onChangeText={(text) => setStartHour(text)}
         />
-        <TextInput
+        <MaskInput
           style={ReserveRegistrationStyle.dateInput}
+          value={endHour}
+          mask={[/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/]}
           placeholder="Hora de fim"
+          onChangeText={(text) => setEndHour(text)}
         />
       </View>
 
       <View style={ReserveRegistrationStyle.observationContainer}>
-        <TextInput style={MainStyle.input} placeholder="Observação" />
+        <TextInput
+          style={MainStyle.input}
+          placeholder="Observação"
+          onChangeText={(text) => setObservation(text)}
+        />
       </View>
 
       <Button
         color="#484D50"
         title="Salvar Reserva"
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => {
+          onRegister();
+          navigation.navigate("Login");
+        }}
       />
     </View>
   );
