@@ -24,6 +24,7 @@ async function findUserData(uid) {
   await get(userRef).then((snapshot) => {
     if (snapshot.exists()) {
       let userData = snapshot.val();
+      userData.uid = uid;
       UserSingleton.setInstance(userData);
 
       userType = userData.type;
