@@ -3,7 +3,7 @@ import { View, TextInput, Button, Image } from "react-native";
 
 import MainStyle from "../../styles/main-style";
 import LoginStyle from "../../styles/screens/login-style";
-import doLogin from "../../source/login";
+import { authUser, findUserData } from "../../source/login";
 
 import Icons from "../../resources/icons";
 
@@ -11,9 +11,15 @@ const Login = ({ navigation }) => {
   const [ra, setRa] = useState("");
   const [senha, setSenha] = useState("");
 
+  const userTypeScreenMap = { 1: "MainTeacher", 2: "MainAdmin" };
+
   async function onLoginPressed() {
-    if (await doLogin(ra, senha)) {
-      navigation.navigate("MainTeacher");
+    let userUid = await authUser(ra, senha);
+    let userType = await findUserData(userUid);
+
+    let nextScreen = userTypeScreenMap[userType];
+    if (nextScreen) {
+      navigation.navigate(nextScreen);
     }
   }
 
