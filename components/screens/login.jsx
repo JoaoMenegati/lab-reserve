@@ -3,21 +3,20 @@ import { View, TextInput, Button, Image } from "react-native";
 
 import MainStyle from "../../styles/main-style";
 import LoginStyle from "../../styles/screens/login-style";
-import { authUser, findUserData } from "../../source/login";
 
+import { authUser, findUserData } from "../../source/login";
+import getMainScreen from "../../source/main-screen";
 import Icons from "../../resources/icons";
 
 const Login = ({ navigation }) => {
   const [ra, setRa] = useState("");
   const [senha, setSenha] = useState("");
 
-  const userTypeScreenMap = { 1: "MainTeacher", 2: "MainAdmin" };
-
   async function onLoginPressed() {
     let userUid = await authUser(ra, senha);
     let userType = await findUserData(userUid);
 
-    let nextScreen = userTypeScreenMap[userType];
+    let nextScreen = getMainScreen(userType);
     if (nextScreen) {
       navigation.navigate(nextScreen);
     }
