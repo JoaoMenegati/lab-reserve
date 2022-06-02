@@ -2,10 +2,6 @@ var UserSingleton = (function () {
   var userInstance;
 
   return {
-    deleteInstance: function () {
-      userInstance = undefined;
-    },
-
     setInstance: function (newInstance) {
       userInstance = newInstance;
     },

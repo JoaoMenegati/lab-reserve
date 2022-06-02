@@ -7,6 +7,8 @@ import MainStyle from "../../styles/main-style";
 import ReserveRegistrationStyle from "../../styles/screens/reserve-registration-style";
 
 import { registerReserve } from "../../source/labs-reserve";
+import UserSingleton from "../../source/user-singleton";
+import getMainScreen from "../../source/main-screen";
 
 const ReserveRegistration = ({ navigation }) => {
   const [lab, setLab] = useState("B2-S1");
@@ -16,7 +18,7 @@ const ReserveRegistration = ({ navigation }) => {
   const [observation, setObservation] = useState("");
 
   async function onRegister() {
-    registerReserve("3y8QF4aiJ4YsgYnDed9xX3l6e0M2", { //mudar para pegar o uid do usuário logado
+    registerReserve(UserSingleton.getInstance().uid, {
       lab: lab,
       date: date,
       startHour: startHour,
@@ -85,7 +87,7 @@ const ReserveRegistration = ({ navigation }) => {
         title="Salvar Reserva"
         onPress={() => {
           onRegister();
-          navigation.navigate("Login");
+          navigation.navigate(getMainScreen(UserSingleton.getInstance().type));
         }}
       />
     </View>
