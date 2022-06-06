@@ -6,25 +6,57 @@ import MaskInput, { Masks } from "react-native-mask-input";
 import MainStyle from "../../styles/main-style";
 import ReserveRegistrationStyle from "../../styles/screens/reserve-registration-style";
 
-import { registerReserve } from "../../source/labs-reserve";
+import {
+  validateDate,
+  validateStartHour,
+  validateEndHour,
+  isCurrentDate,
+} from "./validations/reserve-registration";
+
+import {
+  registerReserve,
+  registerReserveSolicitation,
+} from "../../source/labs-reserve";
 import UserSingleton from "../../source/user-singleton";
 import getMainScreen from "../../source/main-screen";
 
+const USER_TYPE_USER = 1;
+const USER_TYPE_ADMIN = 2;
+
 const ReserveRegistration = ({ navigation }) => {
+  const user = UserSingleton.getInstance();
+
   const [lab, setLab] = useState("B2-S1");
   const [date, setDate] = useState("");
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [observation, setObservation] = useState("");
 
+  const [isDateValid, setIsDateValid] = useState(true);
+  const [isStartHourValid, setIsStartHourValid] = useState(true);
+  const [isEndHourValid, setIsEndHourValid] = useState(true);
+
   async function onRegister() {
-    registerReserve(UserSingleton.getInstance().uid, {
+    const reserveData = {
       lab: lab,
       date: date,
       startHour: startHour,
       endHour: endHour,
       observation: observation,
-    });
+    };
+
+    switch (parseInt(user.type)) {
+      case USER_TYPE_ADMIN:
+        await registerReserve(user.uid, reserveData);
+        break;
+      case USER_TYPE_USER:
+        await registerReserveSolicitation(user.uid, reserveData);
+        break;
+      default:
+        break;
+    }
+
+    navigation.navigate(getMainScreen(user.type));
   }
 
   return (
@@ -47,11 +79,17 @@ const ReserveRegistration = ({ navigation }) => {
 
       <View style={ReserveRegistrationStyle.dateContainer}>
         <MaskInput
-          style={MainStyle.input}
+          style={[
+            MainStyle.input,
+            {
+              borderColor: isDateValid ? "#000000" : "#CF1F1F",
+            },
+          ]}
           value={date}
           mask={Masks.DATE_DDMMYYYY}
           placeholder="Data"
           onChangeText={(masked, unmasked) => {
+            setIsDateValid(validateDate(masked));
             setDate(masked);
           }}
         />
@@ -59,18 +97,48 @@ const ReserveRegistration = ({ navigation }) => {
 
       <View style={ReserveRegistrationStyle.hourContainer}>
         <MaskInput
-          style={ReserveRegistrationStyle.dateInput}
+          style={[
+            ReserveRegistrationStyle.dateInput,
+            {
+              borderColor: isStartHourValid ? "#000000" : "#CF1F1F",
+            },
+          ]}
           value={startHour}
-          mask={[/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/]}
+          mask={(text) => {
+            if (text[0] === "2") {
+              return [/[0-2]/, /[0-3]/, ":", /[0-5]/, /[0-9]/];
+            } else {
+              return [/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/];
+            }
+          }}
           placeholder="Hora de início"
-          onChangeText={(text) => setStartHour(text)}
+          onChangeText={(masked, unmasked) => {
+            setIsStartHourValid(
+              isCurrentDate(date) ? validateStartHour(masked) : true
+            );
+            setStartHour(masked);
+          }}
         />
         <MaskInput
-          style={ReserveRegistrationStyle.dateInput}
+          style={[
+            ReserveRegistrationStyle.dateInput,
+            {
+              borderColor: isEndHourValid ? "#000000" : "#CF1F1F",
+            },
+          ]}
           value={endHour}
-          mask={[/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/]}
+          mask={(text) => {
+            if (text[0] === "2") {
+              return [/[0-2]/, /[0-3]/, ":", /[0-5]/, /[0-9]/];
+            } else {
+              return [/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/];
+            }
+          }}
           placeholder="Hora de fim"
-          onChangeText={(text) => setEndHour(text)}
+          onChangeText={(masked, unmasked) => {
+            setIsEndHourValid(validateEndHour(masked, startHour));
+            setEndHour(masked);
+          }}
         />
       </View>
 
@@ -85,9 +153,9 @@ const ReserveRegistration = ({ navigation }) => {
       <Button
         color="#484D50"
         title="Salvar Reserva"
+        disabled={!isDateValid || !isStartHourValid || !isEndHourValid}
         onPress={() => {
           onRegister();
-          navigation.navigate(getMainScreen(UserSingleton.getInstance().type));
         }}
       />
     </View>
