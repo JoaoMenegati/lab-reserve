@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import MaskInput, { Masks } from "react-native-mask-input";
@@ -12,6 +12,7 @@ import {
   validateEndHour,
   isCurrentDate,
 } from "./validations/reserve-registration";
+import { getLabs } from "../../source/labs";
 
 import {
   registerReserve,
@@ -31,6 +32,7 @@ const ReserveRegistration = ({ navigation }) => {
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [observation, setObservation] = useState("");
+  const [labs, setLabs] = useState([]);
 
   const [isDateValid, setIsDateValid] = useState(true);
   const [isStartHourValid, setIsStartHourValid] = useState(true);
@@ -59,6 +61,14 @@ const ReserveRegistration = ({ navigation }) => {
     navigation.navigate(getMainScreen(user.type));
   }
 
+  async function findLabs() {
+    setLabs(await getLabs());
+  }
+
+  useEffect(() => {
+    findLabs();
+  }, []);
+
   return (
     <View style={MainStyle.container}>
       <Text style={ReserveRegistrationStyle.title}>Nova reserva</Text>
@@ -69,12 +79,10 @@ const ReserveRegistration = ({ navigation }) => {
         selectedValue={lab}
         onValueChange={(itemValue, itemIndex) => setLab(itemValue)}
       >
-        <Picker.Item value="B2-S1" label="1ENGSOF" />
-        <Picker.Item value="B2-S2" label="2PROGR" />
-        <Picker.Item value="B4-S6" label="3PRODSOFT" />
-        <Picker.Item value="B4-S5" label="4COMP" />
-        <Picker.Item value="B4-S4" label="5REDES" />
-        <Picker.Item value="D2-S3" label="LABTOPOGEO6" />
+        {Object.keys(labs).map((key) => {
+          const lab = labs[key];
+          return <Picker.Item key={key} value={lab.id} label={lab.name} />;
+        })}
       </Picker>
 
       <View style={ReserveRegistrationStyle.dateContainer}>
