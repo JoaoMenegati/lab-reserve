@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Dimensions } from "react-native";
 
 import MainStyle from "../../styles/main-style";
@@ -6,66 +6,20 @@ import ReserveSolicitationStyle from "../../styles/screens/reserve-solicitation-
 import TextStyle from "../../styles/text-style";
 
 import ListLabs from "./list-labs";
+import { getReserveSolicitations } from "../../source/labs-reserve";
 
 const window = Dimensions.get("window");
 
 const ReserveSolicitation = ({ navigation }) => {
-  const DATA = [
-    {
-      id: "0",
-      hour: "09:00 - 09:50",
-      teacher: "Professor Sergio",
-      lab: "LabQuimica2",
-    },
-    {
-      id: "1",
-      hour: "10:00 - 10:40",
-      teacher: "Manutenção Programada",
-      lab: "LabProdSoftware",
-    },
-    {
-      id: "2",
-      hour: "10:50 - 12:40",
-      teacher: "Professor Marcos",
-      lab: "LabTopoGeo",
-    },
-    {
-      id: "3",
-      hour: "13:00 as 15:50",
-      teacher: "Professora Maria",
-      lab: "LabQuimica",
-    },
-    {
-      id: "4",
-      hour: "16:00 - 17:50",
-      teacher: "Professor Carlos",
-      lab: "LabQuimica3",
-    },
-    {
-      id: "5",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-      lab: "LabQuimica5",
-    },
-    {
-      id: "6",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-      lab: "LabQuimica5",
-    },
-    {
-      id: "7",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-      lab: "LabQuimica5",
-    },
-    {
-      id: "8",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-      lab: "LabQuimica5",
-    },
-  ];
+  const [reserveSolicitations, setReserveSolicitations] = useState({});
+
+  async function findUserReserves() {
+    setReserveSolicitations(await getReserveSolicitations());
+  }
+
+  useEffect(() => {
+    findUserReserves();
+  }, []);
 
   return (
     <View style={MainStyle.container}>
@@ -77,7 +31,7 @@ const ReserveSolicitation = ({ navigation }) => {
             <Text style={TextStyle.titleText}>Minhas reservas</Text>
           </View>
           <View style={ReserveSolicitationStyle.list}>
-            <ListLabs data={DATA}></ListLabs>
+            <ListLabs data={reserveSolicitations}></ListLabs>
           </View>
         </View>
       </View>

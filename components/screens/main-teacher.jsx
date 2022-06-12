@@ -20,11 +20,12 @@ import ListLabs from "./list-labs";
 //import resources
 import Icons from "../../resources/icons";
 import UserSingleton from "../../source/user-singleton";
+import { getUserReserves } from "../../source/labs-reserve";
 
 const window = Dimensions.get("window");
 
 const MainTeacher = ({ navigation }) => {
-  const [labs, setLabs] = useState({});
+  const [reserves, setReserves] = useState({});
 
   const user = UserSingleton.getInstance();
 
@@ -40,44 +41,14 @@ const MainTeacher = ({ navigation }) => {
     navigation.navigate("ReserveRegistration");
   };
 
-  async function findUserLabs() {}
+  async function findUserReserves() {
+    setReserves(await getUserReserves(user.uid));
+    console.log(reserves);
+  }
 
   useEffect(() => {
-    findUserLabs();
+    findUserReserves();
   }, []);
-
-  const DATA = [
-    {
-      id: "0",
-      hour: "16:00",
-      lab: "LabQuimica2",
-    },
-    {
-      id: "1",
-      hour: "18:00",
-      lab: "LabProdSoftware",
-    },
-    {
-      id: "2",
-      hour: "19:00",
-      lab: "LabTopoGeo",
-    },
-    {
-      id: "3",
-      hour: "21:00",
-      lab: "LabQuimica",
-    },
-    {
-      id: "4",
-      hour: "21:30",
-      lab: "LabQuimica3",
-    },
-    {
-      id: "5",
-      hour: "22:00",
-      lab: "LabQuimica5",
-    },
-  ];
 
   return (
     <View style={Styles.container}>
@@ -113,7 +84,7 @@ const MainTeacher = ({ navigation }) => {
           </TouchableHighlight>
         </View>
         <View style={MainTeacherStyle.list}>
-          <ListLabs data={DATA}></ListLabs>
+          <ListLabs data={reserves}></ListLabs>
         </View>
       </View>
     </View>

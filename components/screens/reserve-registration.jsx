@@ -27,7 +27,8 @@ const USER_TYPE_ADMIN = 2;
 const ReserveRegistration = ({ navigation }) => {
   const user = UserSingleton.getInstance();
 
-  const [lab, setLab] = useState("B2-S1");
+  const [labIndex, setLabIndex] = useState(0);
+  const [lab, setLab] = useState();
   const [date, setDate] = useState("");
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
@@ -40,12 +41,15 @@ const ReserveRegistration = ({ navigation }) => {
 
   async function onRegister() {
     const reserveData = {
-      lab: lab,
+      lab: labs[labIndex].id,
+      labName: labs[labIndex].name,
       date: date,
       startHour: startHour,
       endHour: endHour,
       observation: observation,
     };
+
+    console.log(reserveData);
 
     switch (parseInt(user.type)) {
       case USER_TYPE_ADMIN:
@@ -77,7 +81,10 @@ const ReserveRegistration = ({ navigation }) => {
         style={MainStyle.input}
         placeholder="Laboratório"
         selectedValue={lab}
-        onValueChange={(itemValue, itemIndex) => setLab(itemValue)}
+        onValueChange={(itemValue, itemIndex) => {
+          setLab(itemValue);
+          setLabIndex(itemIndex);
+        }}
       >
         {Object.keys(labs).map((key) => {
           const lab = labs[key];
