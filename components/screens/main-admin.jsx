@@ -16,10 +16,13 @@ import ListLabs from "./list-labs";
 import UserHeader from "../user-header";
 
 import Icons from "../../resources/icons";
+import UserSingleton from "../../source/user-singleton";
 
 const window = Dimensions.get("window");
 
 const MainAdmin = ({ navigation }) => {
+  const user = UserSingleton.getInstance();
+
   const onReturnToLogin = () => {
     navigation.navigate("Login");
   };
@@ -73,7 +76,11 @@ const MainAdmin = ({ navigation }) => {
 
   return (
     <View style={Styles.container}>
-      <UserHeader width={window.width - 18} onPressPicture={onReturnToLogin} />
+      <UserHeader
+        width={window.width - 18}
+        onPressPicture={onReturnToLogin}
+        userName={user.name}
+      />
 
       <View style={MainAdminStyle.buttonContainer}>
         <Button

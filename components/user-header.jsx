@@ -23,7 +23,11 @@ const UserHeader = (props) => {
   return (
     <View style={HeaderWindowStyle.header}>
       <View style={UserHeaderStyle.headerRow}>
-        <Text style={TextStyle.titleText}>Olá, Professor!</Text>
+        <Text style={TextStyle.titleText}>
+          {"Olá, "}
+          {props.userName}
+          {"!"}
+        </Text>
         <TouchableHighlight
           style={UserHeaderStyle.imageProfile}
           onPress={props.onPressPicture}

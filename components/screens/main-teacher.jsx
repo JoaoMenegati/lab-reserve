@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -19,10 +19,15 @@ import ListLabs from "./list-labs";
 
 //import resources
 import Icons from "../../resources/icons";
+import UserSingleton from "../../source/user-singleton";
 
 const window = Dimensions.get("window");
 
 const MainTeacher = ({ navigation }) => {
+  const [labs, setLabs] = useState({});
+
+  const user = UserSingleton.getInstance();
+
   const onReturnToLogin = () => {
     navigation.navigate("Login");
   };
@@ -34,6 +39,12 @@ const MainTeacher = ({ navigation }) => {
   const onCreateReserve = () => {
     navigation.navigate("ReserveRegistration");
   };
+
+  async function findUserLabs() {}
+
+  useEffect(() => {
+    findUserLabs();
+  }, []);
 
   const DATA = [
     {
@@ -70,7 +81,11 @@ const MainTeacher = ({ navigation }) => {
 
   return (
     <View style={Styles.container}>
-      <UserHeader width={window.width - 18} onPressPicture={onReturnToLogin} />
+      <UserHeader
+        width={window.width - 18}
+        onPressPicture={onReturnToLogin}
+        userName={user.name}
+      />
       <View style={MainTeacherStyle.componentsMargin}>
         <CalendarPicker width={window.width * 0.9}></CalendarPicker>
         <TouchableHighlight
