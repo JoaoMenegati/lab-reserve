@@ -79,9 +79,7 @@ const MainTeacher = ({ navigation }) => {
         >
           <Image
             style={MainTeacherStyle.image}
-            source={{
-              uri: Icons.getInstance().view,
-            }}
+            source={Icons.getInstance().view}
           />
         </TouchableHighlight>
       </View>
@@ -95,9 +93,7 @@ const MainTeacher = ({ navigation }) => {
           >
             <Image
               style={MainTeacherStyle.image}
-              source={{
-                uri: Icons.getInstance().plus,
-              }}
+              source={Icons.getInstance().plus}
             />
           </TouchableHighlight>
         </View>

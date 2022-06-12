@@ -108,9 +108,7 @@ const MainAdmin = ({ navigation }) => {
           >
             <Image
               style={MainAdminStyle.image}
-              source={{
-                uri: Icons.getInstance().plus,
-              }}
+              source={Icons.getInstance().plus}
             />
           </TouchableHighlight>
         </View>

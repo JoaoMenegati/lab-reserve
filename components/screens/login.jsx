@@ -25,12 +25,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={MainStyle.container}>
       <View style={LoginStyle.imageContainer}>
-        <Image
-          style={LoginStyle.image}
-          source={{
-            uri: Icons.getInstance().main,
-          }}
-        />
+        <Image style={LoginStyle.image} source={Icons.getInstance().main} />
       </View>
 
       <View style={LoginStyle.inputContainer}>

@@ -30,9 +30,7 @@ const UserHeader = (props) => {
         >
           <Image
             style={UserHeaderStyle.imageProfile}
-            source={{
-              uri: Icons.getInstance().userDefault,
-            }}
+            source={Icons.getInstance().userDefault}
           />
         </TouchableHighlight>
       </View>
