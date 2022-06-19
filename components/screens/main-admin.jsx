@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -16,10 +16,16 @@ import ListLabs from "./list-labs";
 import UserHeader from "../user-header";
 
 import Icons from "../../resources/icons";
+import UserSingleton from "../../source/user-singleton";
+import { getUserReserves } from "../../source/labs-reserve";
 
 const window = Dimensions.get("window");
 
 const MainAdmin = ({ navigation }) => {
+  const [reserves, setReserves] = useState({});
+
+  const user = UserSingleton.getInstance();
+
   const onReturnToLogin = () => {
     navigation.navigate("Login");
   };
@@ -28,52 +34,21 @@ const MainAdmin = ({ navigation }) => {
     navigation.navigate("ReserveRegistration");
   };
 
-  const DATA = [
-    {
-      id: "0",
-      hour: "16:00",
-      lab: "LabQuimica2",
-    },
-    {
-      id: "1",
-      hour: "18:00",
-      lab: "LabProdSoftware",
-    },
-    {
-      id: "2",
-      hour: "19:00",
-      lab: "LabTopoGeo",
-    },
-    {
-      id: "3",
-      hour: "21:00",
-      lab: "LabQuimica",
-    },
-    {
-      id: "4",
-      hour: "21:30",
-      lab: "LabQuimica3",
-    },
-    {
-      id: "5",
-      hour: "22:00",
-      lab: "LabQuimica5",
-    },
-    {
-      id: "6",
-      hour: "22:00",
-      lab: "LabQuimica5",
-    },
-    {
-      id: "7",
-      hour: "22:00",
-      lab: "LabQuimica5",
-    },
-  ];
+  async function findUserReserves() {
+    setReserves(await getUserReserves(user.uid));
+  }
+
+  useEffect(() => {
+    findUserReserves();
+  }, []);
 
   return (
     <View style={Styles.container}>
-      <UserHeader width={window.width - 18} onPressPicture={onReturnToLogin} />
+      <UserHeader
+        width={window.width - 18}
+        onPressPicture={onReturnToLogin}
+        userName={user.name}
+      />
 
       <View style={MainAdminStyle.buttonContainer}>
         <Button
@@ -108,14 +83,12 @@ const MainAdmin = ({ navigation }) => {
           >
             <Image
               style={MainAdminStyle.image}
-              source={{
-                uri: Icons.getInstance().plus,
-              }}
+              source={Icons.getInstance().plus}
             />
           </TouchableHighlight>
         </View>
         <View style={MainAdminStyle.list}>
-          <ListLabs data={DATA}></ListLabs>
+          <ListLabs data={reserves}></ListLabs>
         </View>
       </View>
     </View>

@@ -14,8 +14,8 @@ const ListLabs = (props) => {
               marginHorizontal: 16,
             }}
           >
-            <Text style={{ fontSize: 26 }}>
-              • {item.hour} - {item.lab}
+            <Text style={{ fontSize: 22 }}>
+              • {item.startHour} - {item.endHour} - {item.labName}
             </Text>
           </View>
         )}

@@ -1,13 +1,42 @@
 import firebase from "./firebase-config";
-import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push, get } from "firebase/database";
 
 const db = getDatabase();
+
+async function getUserReserves(userUid) {
+  const reserves = new Array();
+
+  const reserveRef = ref(db, "reserves/" + userUid);
+  await get(reserveRef).then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      reserves.push(childSnapshot.val());
+    });
+  });
+
+  return reserves;
+}
+
+async function getReserveSolicitations() {
+  const reserveSolicitations = new Array();
+
+  const reserveRef = ref(db, "reserves/solicitation");
+  await get(reserveRef).then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      reserveSolicitations.push(childSnapshot.val());
+    });
+  });
+
+  console.log(reserveSolicitations);
+  return reserveSolicitations;
+}
 
 async function registerReserve(userUid, reserve) {
   const reserveRef = ref(db, "reserves/" + userUid);
 
   await push(reserveRef, {
+    userName: reserve.userName,
     lab: reserve.lab,
+    labName: reserve.labName,
     date: reserve.date,
     startHour: reserve.startHour,
     endHour: reserve.endHour,
@@ -20,7 +49,9 @@ async function registerReserveSolicitation(userUid, reserve) {
 
   await push(reserveSolicitationRef, {
     userUid: userUid,
+    userName: reserve.userName,
     lab: reserve.lab,
+    labName: reserve.labName,
     date: reserve.date,
     startHour: reserve.startHour,
     endHour: reserve.endHour,
@@ -28,4 +59,9 @@ async function registerReserveSolicitation(userUid, reserve) {
   });
 }
 
-export { registerReserve, registerReserveSolicitation };
+export {
+  registerReserve,
+  registerReserveSolicitation,
+  getUserReserves,
+  getReserveSolicitations,
+};
