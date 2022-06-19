@@ -41,6 +41,7 @@ const ReserveRegistration = ({ navigation }) => {
 
   async function onRegister() {
     const reserveData = {
+      userName: user.name,
       lab: labs[labIndex].id,
       labName: labs[labIndex].name,
       date: date,

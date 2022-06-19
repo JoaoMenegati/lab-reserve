@@ -34,6 +34,7 @@ async function registerReserve(userUid, reserve) {
   const reserveRef = ref(db, "reserves/" + userUid);
 
   await push(reserveRef, {
+    userName: reserve.userName,
     lab: reserve.lab,
     labName: reserve.labName,
     date: reserve.date,
@@ -48,6 +49,7 @@ async function registerReserveSolicitation(userUid, reserve) {
 
   await push(reserveSolicitationRef, {
     userUid: userUid,
+    userName: reserve.userName,
     lab: reserve.lab,
     labName: reserve.labName,
     date: reserve.date,
