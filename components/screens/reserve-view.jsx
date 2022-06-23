@@ -6,6 +6,8 @@ import MainStyle from "../../styles/main-style";
 import ReserveViewStyle from "../../styles/screens/reserver-view-style";
 import TextStyle from "../../styles/text-style";
 import { getReservesToday } from "../../source/labs-reserve";
+import getMainScreen from "../../source/main-screen";
+import UserSingleton from "../../source/user-singleton";
 
 import ListReserves from "./list-reserves";
 
@@ -15,6 +17,8 @@ const ReserveView = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("B2-S1");
   const [reservesToday, setReservesToday] = useState([]);
 
+  const user = UserSingleton.getInstance();
+
   async function findReservesToday() {
     setReservesToday(await getReservesToday());
     console.log(reservesToday);
@@ -23,6 +27,10 @@ const ReserveView = ({ navigation }) => {
   useEffect(() => {
     findReservesToday();
   }, []);
+
+  async function goBack() {
+    navigation.navigate(getMainScreen(user.type));
+  }
 
   return (
     <View style={MainStyle.container}>
@@ -57,7 +65,9 @@ const ReserveView = ({ navigation }) => {
         <Button
           color="#484D50"
           title="Sair"
-          onPress={() => navigation.navigate("MainTeacher")}
+          onPress={() => {
+            goBack();
+          }}
         />
       </View>
     </View>
