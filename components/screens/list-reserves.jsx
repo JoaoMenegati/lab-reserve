@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList, Text } from "react-native";
 
-const ListLabs = (props) => {
+const ListReserves = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -15,8 +15,7 @@ const ListLabs = (props) => {
             }}
           >
             <Text style={{ fontSize: 20 }}>
-              • <b>{item.date}:</b> {item.startHour} - {item.endHour} -{" "}
-              {item.labName}
+              • <b>{item.userName}:</b> {item.startHour} - {item.endHour}
             </Text>
           </View>
         )}
@@ -26,4 +25,4 @@ const ListLabs = (props) => {
   );
 };
 
-export default ListLabs;
+export default ListReserves;

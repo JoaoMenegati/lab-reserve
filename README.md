@@ -1,4 +1,4 @@
-# Rent-a-lab
+# lab-reserve
 
 ## Instalando Ambiente
 
@@ -12,16 +12,6 @@ yarn add expo-cli@5.3.1
 expo update
 ```
 
-Após isto podemos instalar o pacote ReactNavigation utilizando o seguinte comando:
-
 ```
-yarn add @react-navigation/native @react-navigation/native-stack
-```
-
-```
-expo install react-native-screens react-native-safe-area-context
-```
-
-```
-npm install --save react-native-calendar-picker
+yarn install
 ```

@@ -1,65 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Button, Dimensions, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import MainStyle from "../../styles/main-style";
 import ReserveViewStyle from "../../styles/screens/reserver-view-style";
 import TextStyle from "../../styles/text-style";
+import { getReservesToday } from "../../source/labs-reserve";
 
-import ListLabs from "./list-labs";
+import ListReserves from "./list-reserves";
 
 const window = Dimensions.get("window");
 
 const ReserveView = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("B2-S1");
+  const [reservesToday, setReservesToday] = useState([]);
 
-  const DATA = [
-    {
-      id: "0",
-      hour: "09:00 - 09:50",
-      teacher: "Professor Sergio",
-    },
-    {
-      id: "1",
-      hour: "10:00 - 10:40",
-      teacher: "Manutenção Programada",
-    },
-    {
-      id: "2",
-      hour: "10:50 - 12:40",
-      teacher: "Professor Marcos",
-    },
-    {
-      id: "3",
-      hour: "13:00 as 15:50",
-      teacher: "Professora Maria",
-    },
-    {
-      id: "4",
-      hour: "16:00 - 17:50",
-      teacher: "Professor Carlos",
-    },
-    {
-      id: "5",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-    },
-    {
-      id: "6",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-    },
-    {
-      id: "7",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-    },
-    {
-      id: "8",
-      hour: "19:00 - 19:40",
-      teacher: "Professora Ana",
-    },
-  ];
+  async function findReservesToday() {
+    setReservesToday(await getReservesToday());
+    console.log(reservesToday);
+  }
+
+  useEffect(() => {
+    findReservesToday();
+  }, []);
 
   return (
     <View style={MainStyle.container}>
@@ -79,14 +42,17 @@ const ReserveView = ({ navigation }) => {
         <Picker.Item value="D2-S3" label="LABTOPOGEO6" />
       </Picker>
 
-      <View style={ReviewListWindowStyle.listComponent}>
-        <View style={ReserveViewStyle.headerListRow}>
-          <Text style={TextStyle.titleText}>Minhas reservas</Text>
-        </View>
-        <View style={ReserveViewStyle.list}>
-          <ListLabs data={DATA}></ListLabs>
+      <View style={MainStyle.container}>
+        <View style={ReserveViewStyle.listComponent}>
+          <View style={ReserveViewStyle.headerListRow}>
+            <Text style={TextStyle.titleText}>Reservas</Text>
+          </View>
+          <View style={ReserveViewStyle.list}>
+            <ListReserves data={reservesToday}></ListReserves>
+          </View>
         </View>
       </View>
+
       <View style={ReserveViewStyle.buttonContainer}>
         <Button
           color="#484D50"
