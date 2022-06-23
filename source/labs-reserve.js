@@ -3,13 +3,45 @@ import { getDatabase, ref, push, get } from "firebase/database";
 
 const db = getDatabase();
 
+async function getReservesToday() {
+  const reservesToday = new Array();
+
+  const reserveRef = ref(db, "reserves");
+  await get(reserveRef).then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      childSnapshot.forEach((reserve) => {
+        console.log(reserve.val());
+        const reserveToday = reserve.val();
+
+        var partesData = reserveToday.date.split("/");
+        var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+
+        if ((data = new Date())) {
+          reservesToday.push(reserveToday);
+        }
+      });
+    });
+  });
+
+  return reservesToday;
+}
+
 async function getUserReserves(userUid) {
   const reserves = new Array();
 
   const reserveRef = ref(db, "reserves/" + userUid);
   await get(reserveRef).then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
-      reserves.push(childSnapshot.val());
+      const reserve = childSnapshot.val();
+
+      var partesData = reserve.date.split("/");
+      var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+
+      if (data >= new Date()) {
+        reserves.push(reserve);
+      }
+
+      console.log(reserve);
     });
   });
 
@@ -64,4 +96,5 @@ export {
   registerReserveSolicitation,
   getUserReserves,
   getReserveSolicitations,
+  getReservesToday,
 };

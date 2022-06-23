@@ -12,6 +12,15 @@ const ReserveViewStyle = StyleSheet.create({
     paddingLeft: 16,
   },
 
+  listComponent: {
+    flex: 3,
+    margin: 3,
+    justifyContent: "center",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderRadius: 12,
+  },
+
   list: {
     flex: 1,
     borderRadius: 12,
