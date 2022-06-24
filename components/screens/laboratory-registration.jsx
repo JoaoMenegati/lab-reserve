@@ -3,6 +3,8 @@ import { Text, View, TextInput, Button } from "react-native";
 
 import MainStyle from "../../styles/main-style";
 import LaboratoryRegistrationStyle from "../../styles/screens/laboratory-registration-syle";
+import UserSingleton from "../../source/user-singleton";
+import getMainScreen from "../../source/main-screen";
 
 import { registerLaboratory } from "../../source/labs";
 
@@ -10,6 +12,7 @@ const LaboratoryRegistration = ({ navigation }) => {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [description, setDescription] = useState("");
+  const user = UserSingleton.getInstance();
 
   async function onRegister() {
     const labRegister = {
@@ -19,8 +22,10 @@ const LaboratoryRegistration = ({ navigation }) => {
     };
 
     await registerLaboratory(labRegister);
+  }
 
-    navigation.navigate("MainAdmin");
+  async function goBack() {
+    navigation.navigate(getMainScreen(user.type));
   }
 
   return (
@@ -58,6 +63,14 @@ const LaboratoryRegistration = ({ navigation }) => {
         title="Salvar Laboratório"
         onPress={() => {
           onRegister();
+        }}
+      />
+
+      <Button
+        color="#484D50"
+        title="Voltar"
+        onPress={() => {
+          goBack();
         }}
       />
     </View>

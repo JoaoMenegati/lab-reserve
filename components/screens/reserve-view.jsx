@@ -5,9 +5,10 @@ import { Picker } from "@react-native-picker/picker";
 import MainStyle from "../../styles/main-style";
 import ReserveViewStyle from "../../styles/screens/reserver-view-style";
 import TextStyle from "../../styles/text-style";
-import { getReservesToday } from "../../source/labs-reserve";
+import { getReservesToday, getReservesByLabs } from "../../source/labs-reserve";
 import getMainScreen from "../../source/main-screen";
 import UserSingleton from "../../source/user-singleton";
+import { getLabs } from "../../source/labs";
 
 import ListReserves from "./list-reserves";
 
@@ -16,6 +17,8 @@ const window = Dimensions.get("window");
 const ReserveView = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("B2-S1");
   const [reservesToday, setReservesToday] = useState([]);
+  const [reservesByLab, setReservesByLab] = useState([]);
+  const [labs, setLabs] = useState([]);
 
   const user = UserSingleton.getInstance();
 
@@ -24,8 +27,20 @@ const ReserveView = ({ navigation }) => {
     console.log(reservesToday);
   }
 
+  async function findReservesByLab() {
+    setReservesByLab(await getReservesByLabs(selectedValue));
+  }
+
   useEffect(() => {
     findReservesToday();
+  }, []);
+
+  async function findLabs() {
+    setLabs(await getLabs());
+  }
+
+  useEffect(() => {
+    findLabs();
   }, []);
 
   async function goBack() {
@@ -40,31 +55,30 @@ const ReserveView = ({ navigation }) => {
         style={MainStyle.input}
         placeholder="Laboratório"
         selectedValue={selectedValue}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        onValueChange={(lab, itemIndex) => {
+          setSelectedValue(lab);
+          findReservesByLab();
+        }}
       >
-        <Picker.Item value="B2-S1" label="1ENGSOF" />
-        <Picker.Item value="B2-S2" label="2PROGR" />
-        <Picker.Item value="B4-S6" label="3PRODSOFT" />
-        <Picker.Item value="B4-S5" label="4COMP" />
-        <Picker.Item value="B4-S4" label="5REDES" />
-        <Picker.Item value="D2-S3" label="LABTOPOGEO6" />
+        {Object.keys(labs).map((key) => {
+          const lab = labs[key];
+          return <Picker.Item key={key} value={lab.id} label={lab.name} />;
+        })}
       </Picker>
 
-      <View style={MainStyle.container}>
-        <View style={ReserveViewStyle.listComponent}>
-          <View style={ReserveViewStyle.headerListRow}>
-            <Text style={TextStyle.titleText}>Reservas</Text>
-          </View>
-          <View style={ReserveViewStyle.list}>
-            <ListReserves data={reservesToday}></ListReserves>
-          </View>
+      <View style={ReserveViewStyle.listComponent}>
+        <View style={ReserveViewStyle.headerListRow}>
+          <Text style={TextStyle.titleText}>Reservas</Text>
+        </View>
+        <View style={ReserveViewStyle.list}>
+          <ListReserves data={reservesByLab}></ListReserves>
         </View>
       </View>
 
       <View style={ReserveViewStyle.buttonContainer}>
         <Button
           color="#484D50"
-          title="Sair"
+          title="Voltar"
           onPress={() => {
             goBack();
           }}

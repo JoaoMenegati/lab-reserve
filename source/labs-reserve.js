@@ -26,19 +26,36 @@ async function getReservesToday() {
   return reservesToday;
 }
 
+async function getReservesByLabs(lab) {
+  const reservesToday = await getReservesToday();
+  const reservesByLab = new Array();
+
+  console.log(lab);
+  reservesToday.forEach((reserve) => {
+    if (reserve.lab === lab) {
+      reservesByLab.push(reserve);
+    }
+    console.log(reserve);
+  });
+
+  return reservesByLab;
+}
+
 async function getUserReserves(userUid) {
   const reserves = new Array();
 
   const reserveRef = ref(db, "reserves/" + userUid);
   await get(reserveRef).then((snapshot) => {
+    console.log(snapshot.val());
     snapshot.forEach((childSnapshot) => {
       const reserve = childSnapshot.val();
-
       var partesData = reserve.date.split("/");
       var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+      console.log("aqui");
 
       if (data >= new Date()) {
         reserves.push(reserve);
+        console.log("entrou");
       }
 
       console.log(reserve);
@@ -46,20 +63,6 @@ async function getUserReserves(userUid) {
   });
 
   return reserves;
-}
-
-async function getReserveSolicitations() {
-  const reserveSolicitations = new Array();
-
-  const reserveRef = ref(db, "reserves/solicitation");
-  await get(reserveRef).then((snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-      reserveSolicitations.push(childSnapshot.val());
-    });
-  });
-
-  console.log(reserveSolicitations);
-  return reserveSolicitations;
 }
 
 async function registerReserve(userUid, reserve) {
@@ -76,25 +79,9 @@ async function registerReserve(userUid, reserve) {
   });
 }
 
-async function registerReserveSolicitation(userUid, reserve) {
-  const reserveSolicitationRef = ref(db, "reserves/solicitation");
-
-  await push(reserveSolicitationRef, {
-    userUid: userUid,
-    userName: reserve.userName,
-    lab: reserve.lab,
-    labName: reserve.labName,
-    date: reserve.date,
-    startHour: reserve.startHour,
-    endHour: reserve.endHour,
-    observation: reserve.observation,
-  });
-}
-
 export {
   registerReserve,
-  registerReserveSolicitation,
   getUserReserves,
-  getReserveSolicitations,
   getReservesToday,
+  getReservesByLabs,
 };
