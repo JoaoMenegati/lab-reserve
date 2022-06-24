@@ -168,22 +168,26 @@ const ReserveRegistration = ({ navigation }) => {
         />
       </View>
 
-      <Button
-        color="#484D50"
-        title="Salvar Reserva"
-        disabled={!isDateValid || !isStartHourValid || !isEndHourValid}
-        onPress={() => {
-          onRegister();
-        }}
-      />
+      <View style={ReserveRegistrationStyle.buttonContainer}>
+        <Button
+          color="#484D50"
+          title="Salvar Reserva"
+          disabled={!isDateValid || !isStartHourValid || !isEndHourValid}
+          onPress={() => {
+            onRegister();
+          }}
+        />
+      </View>
 
-      <Button
-        color="#484D50"
-        title="Voltar"
-        onPress={() => {
-          goBack();
-        }}
-      />
+      <View style={ReserveRegistrationStyle.buttonContainer}>
+        <Button
+          color="#484D50"
+          title="Voltar"
+          onPress={() => {
+            goBack();
+          }}
+        />
+      </View>
     </View>
   );
 };
