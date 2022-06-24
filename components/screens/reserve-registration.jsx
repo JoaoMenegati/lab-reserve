@@ -14,10 +14,8 @@ import {
 } from "./validations/reserve-registration";
 import { getLabs } from "../../source/labs";
 
-import {
-  registerReserve,
-  registerReserveSolicitation,
-} from "../../source/labs-reserve";
+import { registerReserve } from "../../source/labs-reserve";
+import { registerReserveSolicitation } from "../../source/reserve-solicitation";
 import UserSingleton from "../../source/user-singleton";
 import getMainScreen from "../../source/main-screen";
 
@@ -73,6 +71,10 @@ const ReserveRegistration = ({ navigation }) => {
   useEffect(() => {
     findLabs();
   }, []);
+
+  async function goBack() {
+    navigation.navigate(getMainScreen(user.type));
+  }
 
   return (
     <View style={MainStyle.container}>
@@ -172,6 +174,14 @@ const ReserveRegistration = ({ navigation }) => {
         disabled={!isDateValid || !isStartHourValid || !isEndHourValid}
         onPress={() => {
           onRegister();
+        }}
+      />
+
+      <Button
+        color="#484D50"
+        title="Voltar"
+        onPress={() => {
+          goBack();
         }}
       />
     </View>

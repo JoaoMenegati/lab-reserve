@@ -6,7 +6,7 @@ import ReserveSolicitationStyle from "../../styles/screens/reserve-solicitation-
 import TextStyle from "../../styles/text-style";
 
 import ListLabs from "./list-labs";
-import { getReserveSolicitations } from "../../source/labs-reserve";
+import { getReserveSolicitations } from "../../source/reserve-solicitation";
 
 const window = Dimensions.get("window");
 
