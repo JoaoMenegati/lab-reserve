@@ -58,21 +58,26 @@ const LaboratoryRegistration = ({ navigation }) => {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <Button
-        color="#484D50"
-        title="Salvar Laboratório"
-        onPress={() => {
-          onRegister();
-        }}
-      />
 
-      <Button
-        color="#484D50"
-        title="Voltar"
-        onPress={() => {
-          goBack();
-        }}
-      />
+      <View style={LaboratoryRegistrationStyle.buttonContainer}>
+        <Button
+          color="#484D50"
+          title="Salvar Laboratório"
+          onPress={() => {
+            onRegister();
+          }}
+        />
+      </View>
+
+      <View style={LaboratoryRegistrationStyle.buttonContainer}>
+        <Button
+          color="#484D50"
+          title="Voltar"
+          onPress={() => {
+            goBack();
+          }}
+        />
+      </View>
     </View>
   );
 };

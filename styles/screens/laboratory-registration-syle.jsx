@@ -9,6 +9,10 @@ const LaboratoryRegistrationStyle = StyleSheet.create({
     fontSize: 26,
     paddingBottom: 55,
   },
+
+  buttonContainer: {
+    margin: 16,
+  },
 });
 
 export default LaboratoryRegistrationStyle;
