@@ -7,6 +7,8 @@ var Icons = (function () {
     object.userDefault = require("./icons/user-default.png");
     object.view = require("./icons/view.png");
     object.plus = require("./icons/plus.png");
+    object.accept = require("./icons/accept.png");
+    object.deny = require("./icons/deny.png");
 
     return object;
   }

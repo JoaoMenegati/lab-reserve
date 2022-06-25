@@ -3,9 +3,8 @@ import { View, Text, Button, StyleSheet, Dimensions } from "react-native";
 
 import MainStyle from "../../styles/main-style";
 import ReserveSolicitationStyle from "../../styles/screens/reserve-solicitation-style";
-import TextStyle from "../../styles/text-style";
 
-import ListLabs from "./list-labs";
+import ListSolicitations from "./list-solicitations";
 import { getReserveSolicitations } from "../../source/reserve-solicitation";
 
 const window = Dimensions.get("window");
@@ -13,25 +12,32 @@ const window = Dimensions.get("window");
 const ReserveSolicitation = ({ navigation }) => {
   const [reserveSolicitations, setReserveSolicitations] = useState({});
 
-  async function findUserReserves() {
+  async function findReserveSolicitations() {
     setReserveSolicitations(await getReserveSolicitations());
   }
 
   useEffect(() => {
-    findUserReserves();
+    findReserveSolicitations();
   }, []);
 
   return (
     <View style={MainStyle.container}>
       <Text style={ReserveSolicitationStyle.title}>Reservas pendentes</Text>
 
-      <View style={ReserveSolicitationWindowStyle.listComponent}>
-        <View style={ReserveSolicitationWindowStyle.listComponent}>
-          <View style={ReserveSolicitationStyle.headerListRow}>
-            <Text style={TextStyle.titleText}>Minhas reservas</Text>
-          </View>
-          <View style={ReserveSolicitationStyle.list}>
-            <ListLabs data={reserveSolicitations}></ListLabs>
+      <View
+        style={[
+          ReserveSolicitationStyle.listComponent,
+          { width: window.width - 64 },
+        ]}
+      >
+        <View
+          style={[
+            ReserveSolicitationStyle.listComponent,
+            { width: window.width - 64 },
+          ]}
+        >
+          <View syle={ReserveSolicitationStyle.list}>
+            <ListSolicitations data={reserveSolicitations}></ListSolicitations>
           </View>
         </View>
       </View>
@@ -62,16 +68,5 @@ const ReserveSolicitation = ({ navigation }) => {
     </View>
   );
 };
-
-const ReserveSolicitationWindowStyle = StyleSheet.create({
-  listComponent: {
-    flex: 3,
-    justifyContent: "center",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderRadius: 12,
-    width: window.width - 64,
-  },
-});
 
 export default ReserveSolicitation;

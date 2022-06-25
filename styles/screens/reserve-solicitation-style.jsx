@@ -22,6 +22,13 @@ const ReserveSolicitationStyle = StyleSheet.create({
   buttonContainer: {
     margin: 8,
   },
+
+  listComponent: {
+    flex: 3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderRadius: 12,
+  },
 });
 
 export default ReserveSolicitationStyle;
