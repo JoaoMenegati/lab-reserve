@@ -30,15 +30,11 @@ const ReserveSolicitation = ({ navigation }) => {
           { width: window.width - 64 },
         ]}
       >
-        <View
-          style={[
-            ReserveSolicitationStyle.listComponent,
-            { width: window.width - 64 },
-          ]}
-        >
-          <View syle={ReserveSolicitationStyle.list}>
-            <ListSolicitations data={reserveSolicitations}></ListSolicitations>
-          </View>
+        <View syle={ReserveSolicitationStyle.list}>
+          <ListSolicitations
+            data={reserveSolicitations}
+            height={window.height / 1.4}
+          ></ListSolicitations>
         </View>
       </View>
 

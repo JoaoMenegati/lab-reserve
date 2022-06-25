@@ -4,9 +4,9 @@ import Solicitation from "../solicitation";
 
 const ListSolicitations = (props) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <FlatList
-        style={{ flex: 1 }}
+        style={{ height: props.height }}
         renderItem={({ item }) => <Solicitation reserve={item}></Solicitation>}
         data={props.data}
       />
