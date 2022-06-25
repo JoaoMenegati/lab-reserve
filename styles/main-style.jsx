@@ -8,6 +8,7 @@ const MainStyle = StyleSheet.create({
     width: 250,
     borderWidth: 1,
     padding: 10,
+    margin: 16,
   },
 
   container: {
