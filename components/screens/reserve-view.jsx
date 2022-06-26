@@ -87,15 +87,4 @@ const ReserveView = ({ navigation }) => {
   );
 };
 
-const ReviewListWindowStyle = StyleSheet.create({
-  listComponent: {
-    flex: 3,
-    justifyContent: "center",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderRadius: 12,
-    width: window.width - 64,
-  },
-});
-
 export default ReserveView;

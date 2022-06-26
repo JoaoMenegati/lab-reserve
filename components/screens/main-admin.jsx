@@ -36,6 +36,7 @@ const MainAdmin = ({ navigation }) => {
 
   async function findUserReserves() {
     setReserves(await getUserReserves(user.uid));
+    console.log(reserves);
   }
 
   useEffect(() => {

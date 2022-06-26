@@ -3,7 +3,12 @@ import { View, FlatList } from "react-native";
 import Solicitation from "../solicitation";
 
 const ListSolicitations = (props) => {
-  const [update, setUpdate] = useState(true);
+  const [update, setTest] = useState(true);
+
+  function removeSolicitationFromList(reserve) {
+    props.removeFromList(reserve);
+    setTest(!update);
+  }
 
   return (
     <View>
@@ -13,8 +18,7 @@ const ListSolicitations = (props) => {
           <Solicitation
             reserve={item}
             removeFromList={(reserve) => {
-              props.removeFromList(reserve);
-              setUpdate(!update);
+              removeSolicitationFromList(reserve);
             }}
           ></Solicitation>
         )}

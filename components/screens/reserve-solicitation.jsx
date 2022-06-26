@@ -6,6 +6,10 @@ import ReserveSolicitationStyle from "../../styles/screens/reserve-solicitation-
 
 import ListSolicitations from "./list-solicitations";
 import { getReserveSolicitations } from "../../source/reserve-solicitation";
+import {
+  removeSolicitation,
+  acceptSolicitation,
+} from "../../source/reserve-solicitation";
 
 const window = Dimensions.get("window");
 
@@ -14,6 +18,20 @@ const ReserveSolicitation = ({ navigation }) => {
 
   async function findReserveSolicitations() {
     setReserveSolicitations(await getReserveSolicitations());
+  }
+
+  async function rejectAll() {
+    await reserveSolicitations.forEach((reserve) => {
+      removeSolicitation(reserve.uid);
+    });
+    navigation.navigate("MainAdmin");
+  }
+
+  async function acceptAll() {
+    await reserveSolicitations.forEach((reserve) => {
+      acceptSolicitation(reserve);
+    });
+    navigation.navigate("MainAdmin");
   }
 
   function removeItemFromList(reserve) {
@@ -56,7 +74,7 @@ const ReserveSolicitation = ({ navigation }) => {
         <Button
           color="#D8222F"
           title="Rejeitar todas"
-          onPress={() => navigation.navigate("MainAdmin")}
+          onPress={() => rejectAll()}
         />
       </View>
 
@@ -64,7 +82,7 @@ const ReserveSolicitation = ({ navigation }) => {
         <Button
           color="#32CD32"
           title="Aceitar todas"
-          onPress={() => navigation.navigate("MainAdmin")}
+          onPress={() => acceptAll()}
         />
       </View>
 

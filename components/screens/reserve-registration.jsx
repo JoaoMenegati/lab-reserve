@@ -64,6 +64,7 @@ const ReserveRegistration = ({ navigation }) => {
 
   async function findLabs() {
     setLabs(await getLabs());
+    console.log(labs);
   }
 
   useEffect(() => {
