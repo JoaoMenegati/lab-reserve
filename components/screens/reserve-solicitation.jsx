@@ -16,6 +16,17 @@ const ReserveSolicitation = ({ navigation }) => {
     setReserveSolicitations(await getReserveSolicitations());
   }
 
+  function removeItemFromList(reserve) {
+    const array = reserveSolicitations;
+    const index = reserveSolicitations.indexOf(reserve);
+
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+
+    setReserveSolicitations(array);
+  }
+
   useEffect(() => {
     findReserveSolicitations();
   }, []);
@@ -34,6 +45,9 @@ const ReserveSolicitation = ({ navigation }) => {
           <ListSolicitations
             data={reserveSolicitations}
             height={window.height / 1.4}
+            removeFromList={(reserve) => {
+              removeItemFromList(reserve);
+            }}
           ></ListSolicitations>
         </View>
       </View>

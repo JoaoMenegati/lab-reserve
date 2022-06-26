@@ -48,8 +48,6 @@ const ReserveRegistration = ({ navigation }) => {
       observation: observation,
     };
 
-    console.log(reserveData);
-
     switch (parseInt(user.type)) {
       case USER_TYPE_ADMIN:
         await registerReserve(user.uid, reserveData);

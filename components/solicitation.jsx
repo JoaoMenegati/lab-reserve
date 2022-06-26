@@ -11,9 +11,22 @@ import Icons from "../resources/icons";
 
 import SolicitationStyle from "../styles/components/solicitation-style";
 
-const window = Dimensions.get("window");
+import {
+  acceptSolicitation,
+  removeSolicitation,
+} from "../source/reserve-solicitation";
 
 const Solicitation = (props) => {
+  async function acceptSolicitationFunc() {
+    await acceptSolicitation(props.reserve);
+    props.removeFromList(props.reserve);
+  }
+
+  async function removeSolicitationFunc() {
+    await removeSolicitation(props.reserve.uid);
+    props.removeFromList(props.reserve);
+  }
+
   return (
     <View style={[SolicitationStyle.container]}>
       <View style={[SolicitationStyle.row]}>
@@ -30,7 +43,7 @@ const Solicitation = (props) => {
         <View style={SolicitationStyle.column}>
           <TouchableHighlight
             style={SolicitationStyle.button}
-            onPress={() => console.log("Oi")}
+            onPress={() => acceptSolicitationFunc()}
           >
             <Image
               style={SolicitationStyle.button}
@@ -40,7 +53,7 @@ const Solicitation = (props) => {
 
           <TouchableHighlight
             style={SolicitationStyle.button}
-            onPress={() => console.log("tchau")}
+            onPress={() => removeSolicitationFunc()}
           >
             <Image
               style={SolicitationStyle.button}

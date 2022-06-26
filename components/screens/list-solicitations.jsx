@@ -7,7 +7,12 @@ const ListSolicitations = (props) => {
     <View>
       <FlatList
         style={{ height: props.height }}
-        renderItem={({ item }) => <Solicitation reserve={item}></Solicitation>}
+        renderItem={({ item }) => (
+          <Solicitation
+            reserve={item}
+            removeFromList={(reserve) => props.removeFromList(reserve)}
+          ></Solicitation>
+        )}
         data={props.data}
       />
     </View>

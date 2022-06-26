@@ -1,5 +1,7 @@
 import firebase from "./firebase-config";
-import { getDatabase, ref, push, get } from "firebase/database";
+import { getDatabase, ref, push, get, set } from "firebase/database";
+
+import { registerReserve } from "./labs-reserve";
 
 const db = getDatabase();
 
@@ -24,12 +26,28 @@ async function getReserveSolicitations() {
   const reserveRef = ref(db, "solicitation");
   await get(reserveRef).then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
-      reserveSolicitations.push(childSnapshot.val());
+      let reserve = childSnapshot.val();
+      reserve.uid = childSnapshot.key;
+      reserveSolicitations.push(reserve);
     });
   });
 
-  console.log(reserveSolicitations);
   return reserveSolicitations;
 }
 
-export { registerReserveSolicitation, getReserveSolicitations };
+async function acceptSolicitation(solicitation) {
+  await registerReserve(solicitation.userUid, solicitation);
+  await removeSolicitation(solicitation.uid);
+}
+
+async function removeSolicitation(solicitationUid) {
+  const solicitationRef = ref(db, "solicitation/" + solicitationUid);
+  set(solicitationRef, null);
+}
+
+export {
+  registerReserveSolicitation,
+  getReserveSolicitations,
+  acceptSolicitation,
+  removeSolicitation,
+};

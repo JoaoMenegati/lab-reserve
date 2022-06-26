@@ -10,13 +10,12 @@ async function getReservesToday() {
   await get(reserveRef).then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
       childSnapshot.forEach((reserve) => {
-        console.log(reserve.val());
         const reserveToday = reserve.val();
 
         var partesData = reserveToday.date.split("/");
         var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
 
-        if ((data = new Date())) {
+        if (data >= new Date()) {
           reservesToday.push(reserveToday);
         }
       });
@@ -30,12 +29,10 @@ async function getReservesByLabs(lab) {
   const reservesToday = await getReservesToday();
   const reservesByLab = new Array();
 
-  console.log(lab);
   reservesToday.forEach((reserve) => {
     if (reserve.lab === lab) {
       reservesByLab.push(reserve);
     }
-    console.log(reserve);
   });
 
   return reservesByLab;
@@ -46,19 +43,14 @@ async function getUserReserves(userUid) {
 
   const reserveRef = ref(db, "reserves/" + userUid);
   await get(reserveRef).then((snapshot) => {
-    console.log(snapshot.val());
     snapshot.forEach((childSnapshot) => {
       const reserve = childSnapshot.val();
       var partesData = reserve.date.split("/");
       var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
-      console.log("aqui");
 
       if (data >= new Date()) {
         reserves.push(reserve);
-        console.log("entrou");
       }
-
-      console.log(reserve);
     });
   });
 

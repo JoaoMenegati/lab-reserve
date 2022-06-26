@@ -24,7 +24,6 @@ const ReserveView = ({ navigation }) => {
 
   async function findReservesToday() {
     setReservesToday(await getReservesToday());
-    console.log(reservesToday);
   }
 
   async function findReservesByLab() {
