@@ -5,7 +5,10 @@ import { Picker } from "@react-native-picker/picker";
 import MainStyle from "../../styles/main-style";
 import ReserveViewStyle from "../../styles/screens/reserver-view-style";
 import TextStyle from "../../styles/text-style";
-import { getReservesToday, getReservesByLabs } from "../../source/labs-reserve";
+import {
+  getReservesUnexpired,
+  getReservesByLabs,
+} from "../../source/labs-reserve";
 import getMainScreen from "../../source/main-screen";
 import UserSingleton from "../../source/user-singleton";
 import { getLabs } from "../../source/labs";
@@ -16,14 +19,14 @@ const window = Dimensions.get("window");
 
 const ReserveView = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("B2-S1");
-  const [reservesToday, setReservesToday] = useState([]);
+  const [reservesUnexpired, setReservesUnexpired] = useState([]);
   const [reservesByLab, setReservesByLab] = useState([]);
   const [labs, setLabs] = useState([]);
 
   const user = UserSingleton.getInstance();
 
-  async function findReservesToday() {
-    setReservesToday(await getReservesToday());
+  async function findReservesUnexpired() {
+    setReservesUnexpired(await getReservesUnexpired());
   }
 
   async function findReservesByLab() {
@@ -31,7 +34,7 @@ const ReserveView = ({ navigation }) => {
   }
 
   useEffect(() => {
-    findReservesToday();
+    findReservesUnexpired();
   }, []);
 
   async function findLabs() {
@@ -48,7 +51,7 @@ const ReserveView = ({ navigation }) => {
 
   return (
     <View style={MainStyle.container}>
-      <Text style={ReserveViewStyle.title}>Reservas de hoje</Text>
+      <Text style={ReserveViewStyle.title}>Reservas por laboratório</Text>
 
       <Picker
         style={MainStyle.input}
