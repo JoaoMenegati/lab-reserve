@@ -15,7 +15,8 @@ const ListReserves = (props) => {
             }}
           >
             <Text style={{ fontSize: 20 }}>
-              • <b>{item.userName}:</b> {item.startHour} - {item.endHour}
+              • <Text style={{ fontWeight: "bold" }}>{item.userName}:</Text>{" "}
+              {item.startHour} - {item.endHour}
             </Text>
           </View>
         )}

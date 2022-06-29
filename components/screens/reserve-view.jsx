@@ -15,26 +15,19 @@ import { getLabs } from "../../source/labs";
 
 import ListReserves from "./list-reserves";
 
-const window = Dimensions.get("window");
-
 const ReserveView = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState("B2-S1");
-  const [reservesUnexpired, setReservesUnexpired] = useState([]);
   const [reservesByLab, setReservesByLab] = useState([]);
   const [labs, setLabs] = useState([]);
 
   const user = UserSingleton.getInstance();
 
-  async function findReservesUnexpired() {
-    setReservesUnexpired(await getReservesUnexpired());
-  }
-
-  async function findReservesByLab() {
-    setReservesByLab(await getReservesByLabs(selectedValue));
+  async function findReservesByLab(lab) {
+    setReservesByLab(await getReservesByLabs(lab));
   }
 
   useEffect(() => {
-    findReservesUnexpired();
+    findReservesByLab(selectedValue);
   }, []);
 
   async function findLabs() {
@@ -59,7 +52,7 @@ const ReserveView = ({ navigation }) => {
         selectedValue={selectedValue}
         onValueChange={(lab, itemIndex) => {
           setSelectedValue(lab);
-          findReservesByLab();
+          findReservesByLab(lab);
         }}
       >
         {Object.keys(labs).map((key) => {

@@ -29,8 +29,7 @@ async function getReservesByLabs(lab) {
   const reservesUnexpired = await getReservesUnexpired();
   const reservesByLab = new Array();
 
-  console.log(lab);
-  reservesToday.forEach((reserve) => {
+  reservesUnexpired.forEach((reserve) => {
     if (reserve.lab === lab) {
       reservesByLab.push(reserve);
     }

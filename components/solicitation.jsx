@@ -31,8 +31,8 @@ const Solicitation = (props) => {
     <View style={[SolicitationStyle.container]}>
       <View style={[SolicitationStyle.row]}>
         <View style={{ flexDirection: "column" }}>
-          <Text style={{ fontSize: 20 }}>
-            <b>{props.reserve.userName}</b>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            {props.reserve.userName}
           </Text>
           <Text style={{ fontSize: 12 }}>{props.reserve.date}</Text>
           <Text style={{ fontSize: 12 }}>

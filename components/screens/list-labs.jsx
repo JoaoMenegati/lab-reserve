@@ -15,8 +15,8 @@ const ListLabs = (props) => {
             }}
           >
             <Text style={{ fontSize: 20 }}>
-              • <b>{item.date}:</b> {item.startHour} - {item.endHour} -{" "}
-              {item.labName}
+              • <Text style={{ fontWeight: "bold" }}>{item.date}:</Text>
+              {item.startHour} - {item.endHour} - {item.labName}
             </Text>
           </View>
         )}
